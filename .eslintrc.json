@@ -43,7 +43,13 @@
       "warn",
       {
         "newlinesBetween": "always",
-        "groups": ["/^react/", "module", ["parent", "sibling", "index"]],
+        "groups": [
+          "/^react/",
+          "/^@components/",
+          "/^@utils/",
+          "module",
+          ["parent", "sibling", "index"]
+        ],
         "alphabetize": {
           "order": "asc",
           "ignoreCase": true
