@@ -4,21 +4,21 @@ export const categories: Categories = {
   food: {
     type: "food",
     title: "Alimentação",
-    expensive: true
+    expense: true
   },
   bills: {
     type: "bills",
     title: "Contas",
-    expensive: true
+    expense: true
   },
   subscription: {
     type: "subscription",
     title: "Assinaturas",
-    expensive: true
+    expense: true
   },
   earnings: {
     type: "earnings",
     title: "Ganhos",
-    expensive: false
+    expense: false
   }
 };

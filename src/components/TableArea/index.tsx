@@ -8,7 +8,7 @@ type TableAreaProps = {
 
 export const TableArea = ({ list }: TableAreaProps) => {
   return (
-    <div className="w-full shadow-lg rounded p-5">
+    <div className="w-full shadow-lg rounded p-5 bg-gray-100">
       <header className="w-full grid place-items-center grid-cols-4">
         <TableHeader>Data</TableHeader>
         <TableHeader>Categoria</TableHeader>

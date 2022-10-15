@@ -30,9 +30,7 @@ export const TableItem = ({ data }: TableItemData) => {
       <span>{data.title}</span>
       <span
         className={`font-medium text-lg ${
-          categories[data.category].expensive
-            ? "text-rose-500"
-            : "text-teal-500"
+          categories[data.category].expense ? "text-rose-500" : "text-teal-500"
         }`}>
         {formatBudget(data.value.toString())}
       </span>

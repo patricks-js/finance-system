@@ -3,8 +3,8 @@ import { Item } from "../@types/ItemTypes";
 export const getCurrentMonth = () => {
   const now = new Date();
   const month = (now.getMonth() + 1).toString().padStart(2, "0");
-
-  return `${now.getFullYear()} - ${month}`;
+  const currentMonth = `${now.getFullYear()}-${month}`;
+  return currentMonth;
 };
 
 export const filteredListByMonth = (list: Item[], date: string): Item[] => {
@@ -30,4 +30,25 @@ export const formatDate = (date: Date): string => {
   const day = now.getDay().toString().padStart(2, "0");
 
   return `${date.getFullYear()}/${month}/${day}`;
+};
+
+export const formatCurrentDate = (date: string): string => {
+  const months = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro"
+  ];
+
+  const [year, month] = date.split("-");
+
+  return `${months[parseInt(month) - 1]}-${year}`;
 };

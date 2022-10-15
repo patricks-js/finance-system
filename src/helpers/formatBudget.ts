@@ -28,7 +28,7 @@ const formatLastValues = (value: string): string => {
 
 const formatRestValues = (value: string) => {
   const valuesArr = [];
-  const unitValue = [];
+  const chunkValue = [];
 
   if (value.includes(".")) {
     for (let i = 0; i < value.length; i++) {
@@ -43,12 +43,10 @@ const formatRestValues = (value: string) => {
   const valueStr = valuesArr.join("");
 
   for (let i = 0; i < valueStr.length; i++) {
-    unitValue.push(valueStr[i]);
+    chunkValue.push(valueStr[i]);
   }
 
-  console.log(valueStr);
-
-  const valueReverse = unitValue.reverse();
+  const valueReverse = chunkValue.reverse();
 
   const resValueFormatted = formateValue(valueReverse, 3);
 
