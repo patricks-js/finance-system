@@ -1,29 +1,106 @@
-import { Field } from "./Field";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
-export const Form = () => {
+import { v4 as uuid } from "uuid";
+
+import { BalanceTypes } from "../../@types/BalanceTypes";
+import { OptionsTypes } from "../../@types/OptionsTypes";
+import { validateData } from "../../helpers/validateData";
+import { api } from "../../server/api";
+import { Button } from "../Button";
+import { Field } from "./Field";
+import { Select } from "./Select";
+
+type FormProps = {
+  onSubmit: (value: BalanceTypes) => void;
+};
+
+const initialValues = {
+  id: "",
+  date: "",
+  category: {
+    type: "",
+    expense: false
+  },
+  title: "",
+  value: undefined
+};
+
+export const Form = ({ onSubmit }: FormProps) => {
+  const [balance, setBalance] = useState<BalanceTypes>(initialValues);
+  const [options, setOptions] = useState<OptionsTypes[]>([]);
+
+  const submit = (e: FormEvent) => {
+    e.preventDefault();
+    postBalance();
+    setBalance(initialValues);
+  };
+
+  const postBalance = () => {
+    onSubmit(validateData(balance));
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setBalance({
+      ...balance,
+      id: uuid(),
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    setBalance({
+      ...balance,
+      category: {
+        type: e.target.options[e.target.selectedIndex].value,
+        expense:
+          e.target.options[e.target.selectedIndex].value !== "earnings"
+            ? true
+            : false
+      }
+    });
+  };
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await api.get("/categories/");
+      setOptions(data);
+    })();
+  }, []);
+
   return (
-    <form className="w-full shadow-lg rounded p-5 grid bg-gray-100 place-items-center grid-cols-5">
+    <form
+      onSubmit={submit}
+      className="w-full shadow-lg rounded p-5 grid bg-gray-100 grid-cols-5 place-items-center items-end gap-x-5">
       <Field
-        identifier="date"
-        type="date"
         label="Data"
+        idf="date"
+        type="date"
+        value={balance.date}
+        onChange={e => handleChange(e)}
+      />
+      <Select
+        idf="category"
+        onChange={e => handleSelect(e)}
+        options={options}
+        value={balance.category.type ? balance.category.type : ""}
       />
       <Field
-        identifier="date"
-        type="date"
-        label="Data"
+        label="Título"
+        idf="title"
+        type="text"
+        onChange={e => handleChange(e)}
+        placeholder="Insira o título..."
+        value={balance.title}
       />
       <Field
-        identifier="date"
-        type="date"
-        label="Data"
+        label="Valor"
+        idf="value"
+        type="number"
+        onChange={e => handleChange(e)}
+        placeholder="Insira o valor..."
+        value={balance.value}
       />
-      <Field
-        identifier="date"
-        type="date"
-        label="Data"
-      />
-      <button type="submit"></button>
+      <Button type="submit">Adicionar</Button>
     </form>
   );
 };

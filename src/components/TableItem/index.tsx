@@ -1,23 +1,21 @@
 import classNames from "classnames";
 
-import { Item } from "../../@types/ItemTypes";
-import { formatDate } from "../../helpers/dateFilters";
+import { BalanceTypes } from "../../@types/BalanceTypes";
 import { formatBudget } from "../../helpers/formatBudget";
-import { categories } from "../../utils/categories";
 
 type TableItemData = {
-  data: Item;
+  data: BalanceTypes;
 };
 
 export const TableItem = ({ data }: TableItemData) => {
-  const food = categories[data.category].type === "food";
-  const bills = categories[data.category].type === "bills";
-  const subscription = categories[data.category].type === "subscription";
-  const earnings = categories[data.category].type === "earnings";
+  const food = data.category.type === "food";
+  const bills = data.category.type === "bills";
+  const subscription = data.category.type === "subscription";
+  const earnings = data.category.type === "earnings";
 
   return (
     <div className="w-full grid place-items-center grid-cols-4">
-      <span className="tracking-widest">{formatDate(data.date)}</span>
+      <span className="tracking-widest">{data.date}</span>
       <span
         className={classNames("max-w-max px-4 py-2 text-gray-100 rounded", {
           "bg-rose-600": food,
@@ -25,14 +23,14 @@ export const TableItem = ({ data }: TableItemData) => {
           "bg-violet-600": subscription,
           "bg-rose-900": earnings
         })}>
-        {categories[data.category].title}
+        {data.category.title && data.category.title}
       </span>
       <span>{data.title}</span>
       <span
         className={`font-medium text-lg ${
-          categories[data.category].expense ? "text-rose-500" : "text-teal-500"
+          data.expense ? "text-rose-500" : "text-teal-500"
         }`}>
-        {formatBudget(data.value.toString())}
+        {data.value && formatBudget(data.value.toString())}
       </span>
     </div>
   );

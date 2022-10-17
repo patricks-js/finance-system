@@ -1,12 +1,12 @@
-import { Item } from "../../@types/ItemTypes";
+import { BalanceTypes } from "../../@types/BalanceTypes";
 import { TableItem } from "../TableItem";
 import { TableHeader } from "./TableHeader";
 
 type TableAreaProps = {
-  list: Item[];
+  balance: BalanceTypes[];
 };
 
-export const TableArea = ({ list }: TableAreaProps) => {
+export const TableArea = ({ balance }: TableAreaProps) => {
   return (
     <div className="w-full shadow-lg rounded p-5 bg-gray-100">
       <header className="w-full grid place-items-center grid-cols-4">
@@ -16,7 +16,7 @@ export const TableArea = ({ list }: TableAreaProps) => {
         <TableHeader>Valor</TableHeader>
       </header>
       <div className="grid gap-y-4">
-        {list.map((item, idx) => (
+        {balance.map((item, idx) => (
           <TableItem
             key={idx}
             data={item}

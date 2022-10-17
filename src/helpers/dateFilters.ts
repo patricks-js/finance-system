@@ -1,4 +1,4 @@
-import { Item } from "../@types/ItemTypes";
+import { Item } from "../@types/BalanceTypes";
 
 export const getCurrentMonth = () => {
   const now = new Date();
@@ -13,11 +13,13 @@ export const filteredListByMonth = (list: Item[], date: string): Item[] => {
   const [year, month] = date.split("-");
 
   list.forEach(item => {
-    if (
-      item.date.getFullYear() === parseInt(year) &&
-      item.date.getMonth() + 1 === parseInt(month)
-    ) {
-      newList.push(item);
+    if (item.date instanceof Date) {
+      if (
+        item.date.getFullYear() === parseInt(year) &&
+        item.date.getMonth() + 1 === parseInt(month)
+      ) {
+        newList.push(item);
+      }
     }
   });
 
@@ -29,7 +31,7 @@ export const formatDate = (date: Date): string => {
   const month = (now.getMonth() + 1).toString().padStart(2, "0");
   const day = now.getDay().toString().padStart(2, "0");
 
-  return `${date.getFullYear()}/${month}/${day}`;
+  return `${month}/${day}/${date.getFullYear()}`;
 };
 
 export const formatCurrentDate = (date: string): string => {

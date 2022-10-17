@@ -1,4 +1,4 @@
-import { Item } from "../@types/ItemTypes";
+import { Item } from "../@types/BalanceTypes";
 
 export const Items: Item[] = [
   {

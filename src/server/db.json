@@ -1,0 +1,46 @@
+{
+  "balance": [
+    {
+      "date": "2022/10/15",
+      "category": {
+        "type": "food",
+        "title": "Alimentação",
+        "expense": true
+      },
+      "title": "Burger King",
+      "value": 32.9
+    },
+    {
+      "date": "2022/10/17",
+      "category": {
+        "type": "earnings",
+        "title": "Ganhos",
+        "expense": false
+      },
+      "title": "Salário da quinzena",
+      "value": 632.99
+    }
+  ],
+  "categories": [
+    {
+      "type": "food",
+      "title": "Alimentação",
+      "expense": true
+    },
+    {
+      "type": "bills",
+      "title": "Contas",
+      "expense": true
+    },
+    {
+      "type": "subscription",
+      "title": "Assinaturas",
+      "expense": true
+    },
+    {
+      "type": "earnings",
+      "title": "Ganhos",
+      "expense": false
+    }
+  ]
+}
