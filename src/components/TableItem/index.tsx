@@ -1,7 +1,9 @@
 import classNames from "classnames";
+import { Trash } from "phosphor-react";
 
 import { BalanceTypes } from "../../@types/BalanceTypes";
-import { formatBudget } from "../../helpers/formatBudget";
+import { useModal } from "../../contexts/ModalContext";
+import { formatValues } from "../../utils/formatValues";
 
 type TableItemData = {
   data: BalanceTypes;
@@ -13,8 +15,15 @@ export const TableItem = ({ data }: TableItemData) => {
   const subscription = data.category.type === "subscription";
   const earnings = data.category.type === "earnings";
 
+  const { setOpenModal, setBalanceId } = useModal();
+
+  const handleModal = (id: string) => {
+    setOpenModal(prev => !prev);
+    setBalanceId(id);
+  };
+
   return (
-    <div className="w-full grid place-items-center grid-cols-4">
+    <div className="w-full grid place-items-center grid-cols-4 ">
       <span className="tracking-widest">{data.date}</span>
       <span
         className={classNames("max-w-max px-4 py-2 text-gray-100 rounded", {
@@ -28,10 +37,19 @@ export const TableItem = ({ data }: TableItemData) => {
       <span>{data.title}</span>
       <span
         className={`font-medium text-lg ${
-          data.expense ? "text-rose-500" : "text-teal-500"
+          data.category.expense ? "text-rose-500" : "text-teal-500"
         }`}>
-        {data.value && formatBudget(data.value.toString())}
+        R$&nbsp;{formatValues(data.value)}
       </span>
+      <button
+        onClick={() => handleModal(data.id)}
+        className="absolute right-10">
+        <Trash
+          size={24}
+          weight="regular"
+          className="text-red-600"
+        />
+      </button>
     </div>
   );
 };

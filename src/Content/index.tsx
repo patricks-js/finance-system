@@ -2,12 +2,21 @@ import { useEffect, useState } from "react";
 
 import { BalanceTypes } from "../@types/BalanceTypes";
 import { Form } from "../components/Form";
+import { Information } from "../components/Information";
 import { TableArea } from "../components/TableArea";
+import { useDate } from "../contexts/DateContext";
+import { useModal } from "../contexts/ModalContext";
 import { api } from "../server/api";
+import { filteredListByMonth } from "../utils/dateFilters";
 
 export const Content = () => {
-  const [balance, setBalance] = useState<BalanceTypes[]>([]);
-  const [newBalance, setNewBalance] = useState<BalanceTypes>();
+  const [balanceFilteredByMonth, setBalanceFilteredByMonth] = useState<
+    BalanceTypes[]
+  >([]);
+
+  const { currentMonth, currentYear } = useDate();
+
+  const { newBalance, setNewBalance } = useModal();
 
   const createBalance = (data: BalanceTypes) => {
     setNewBalance(data);
@@ -16,20 +25,23 @@ export const Content = () => {
   useEffect(() => {
     (async () => {
       const { data } = await api.get("/balance/");
-      setBalance(data);
+      setBalanceFilteredByMonth(
+        filteredListByMonth(
+          data,
+          currentMonth.toString().padStart(2, "0"),
+          currentYear
+        )
+      );
+
+      console.log(balanceFilteredByMonth);
     })();
-  }, [newBalance]);
+  }, [newBalance, currentMonth]);
 
   return (
     <div className="grid gap-y-10 -translate-y-12">
-      {/* <Information
-        date={currentMonth}
-        onDateChange={handleDate}
-        income={income}
-        expense={expense}
-      /> */}
+      <Information data={balanceFilteredByMonth} />
       <Form onSubmit={createBalance} />
-      <TableArea balance={balance} />
+      <TableArea balance={balanceFilteredByMonth} />
     </div>
   );
 };

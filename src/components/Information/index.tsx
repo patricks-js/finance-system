@@ -1,54 +1,52 @@
 import { ArrowLeft, ArrowRight } from "phosphor-react";
 
-import { formatCurrentDate } from "../../helpers/dateFilters";
+import { BalanceTypes } from "../../@types/BalanceTypes";
+import { useDate } from "../../contexts/DateContext";
+import { formatCurrentDate } from "../../utils/dateFilters";
+import {
+  reduceBalance,
+  reduceExpenses,
+  reduceIncomes
+} from "../../utils/reduceValues";
 import { Info } from "./Info";
 
 type InformationProps = {
-  date: string;
-  onDateChange: (value: string) => void;
-  income: number;
-  expense: number;
+  data: BalanceTypes[];
 };
 
-export const Information = ({
-  date,
-  onDateChange,
-  income,
-  expense
-}: InformationProps) => {
-  const handlePrevMonth = () => {
-    const [year, month] = date.split("-");
-    const currentDate = new Date(parseInt(year), parseInt(month) - 1, 1);
-    currentDate.setMonth(currentDate.getMonth() - 1);
-    const newDate = `${currentDate.getFullYear()}-${
-      currentDate.getMonth() + 1
-    }`;
-    onDateChange(newDate);
-  };
+export const Information = ({ data }: InformationProps) => {
+  const { currentMonth, setCurrentMonth, currentYear, setCurrentYear } =
+    useDate();
 
-  const handleNextMonth = () => {
-    const [year, month] = date.split("-");
-    const currentDate = new Date(parseInt(year), parseInt(month) - 1, 1);
-    currentDate.setMonth(currentDate.getMonth() + 1);
-    const newDate = `${currentDate.getFullYear()}-${
-      currentDate.getMonth() + 1
-    }`;
-    onDateChange(newDate);
-  };
+  function nextMonth() {
+    if (currentMonth >= 12) {
+      setCurrentMonth(prev => prev - prev);
+      setCurrentYear(prev => prev + 1);
+    }
+    setCurrentMonth(prev => prev + 1);
+  }
+
+  function prevMonth() {
+    if (currentMonth <= 1) {
+      setCurrentMonth(prev => prev + 12);
+      setCurrentYear(prev => prev - 1);
+    }
+    setCurrentMonth(prev => prev - 1);
+  }
 
   return (
     <div className="w-full shadow-lg rounded p-5 grid bg-gray-100 place-items-center grid-cols-4">
       <div className="flex items-center gap-x-5">
-        <button onClick={handlePrevMonth}>
+        <button onClick={prevMonth}>
           <ArrowLeft
             size={24}
             weight="bold"
           />
         </button>
         <span className="text-lg font-medium inline-block w-44 text-center">
-          {formatCurrentDate(date)}
+          {formatCurrentDate(currentMonth, currentYear)}
         </span>
-        <button onClick={handleNextMonth}>
+        <button onClick={nextMonth}>
           <ArrowRight
             size={24}
             weight="bold"
@@ -57,15 +55,15 @@ export const Information = ({
       </div>
       <Info
         title="Receitas"
-        value={income}
+        value={reduceIncomes(data)}
       />
       <Info
         title="Despesas"
-        value={expense}
+        value={reduceExpenses(data)}
       />
       <Info
         title="Balanço"
-        value={income - expense}
+        value={reduceBalance(data)}
       />
     </div>
   );

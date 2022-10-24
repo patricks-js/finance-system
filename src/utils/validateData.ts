@@ -1,12 +1,12 @@
 import { BalanceTypes } from "../@types/BalanceTypes";
 
-export const validateData = (data: BalanceTypes): BalanceTypes => {
+export const formatData = (data: BalanceTypes): BalanceTypes => {
   const [year, month, day] = data.date.split("-");
 
   const validatedData: BalanceTypes = {
     ...data,
-    value: Number(data.value),
-    date: `${day}-${month}-${year}`
+    date: `${day}-${month}-${year}`,
+    value: Number(data.value)
   };
 
   return validatedData;

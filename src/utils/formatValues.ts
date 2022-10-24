@@ -1,15 +1,17 @@
-export const formatBudget = (value: string) => {
-  const lastValues = formatLastValues(value);
+export const formatValues = (value: number) => {
+  const valueTransform = value.toString();
 
-  const restValues = formatRestValues(value);
+  const lastValues = formatLastValues(valueTransform);
+
+  const restValues = getRest(valueTransform);
 
   const formattedBudget = `${restValues},${lastValues}`;
 
-  return `R$ ${formattedBudget}`;
+  return `${formattedBudget}`;
 };
 
 const formatLastValues = (value: string): string => {
-  if (value.includes(".") === false) {
+  if (!value.includes(".")) {
     return "00";
   }
 
@@ -26,34 +28,32 @@ const formatLastValues = (value: string): string => {
   return validateLastValues.join("").padEnd(2, "0");
 };
 
-const formatRestValues = (value: string) => {
-  const valuesArr = [];
-  const chunkValue = [];
-
+const getRest = (value: string) => {
+  const rest = [];
   if (value.includes(".")) {
     for (let i = 0; i < value.length; i++) {
       if (value[i] === ".") {
-        valuesArr.push(value.slice(0, i));
+        rest.push(value.slice(0, i));
       }
     }
   } else {
-    valuesArr.push(value);
+    rest.push(value);
   }
 
-  const valueStr = valuesArr.join("");
+  const toFormat = rest
+    .join("")
+    .split("")
+    .reverse()
+    .filter(value => value !== "-");
 
-  for (let i = 0; i < valueStr.length; i++) {
-    chunkValue.push(valueStr[i]);
-  }
+  console.log(toFormat);
 
-  const valueReverse = chunkValue.reverse();
+  const formattedValue = chunk(toFormat);
 
-  const resValueFormatted = formateValue(valueReverse, 3);
-
-  return resValueFormatted;
+  return formattedValue.join("");
 };
 
-const formateValue = (arr: string[], len: number) => {
+const chunk = (arr: string[]) => {
   const chunks = [];
   const formateValues = [];
 
@@ -61,7 +61,7 @@ const formateValue = (arr: string[], len: number) => {
   const n = arr.length;
 
   while (i < n) {
-    chunks.push(arr.slice(i, (i += len)));
+    chunks.push(arr.slice(i, (i += 3)));
   }
 
   chunks.reverse();
@@ -74,5 +74,5 @@ const formateValue = (arr: string[], len: number) => {
     }
   }
 
-  return formateValues.join("");
+  return formateValues;
 };

@@ -5,6 +5,5 @@ export type BalanceTypes = {
   date: string;
   category: OptionsTypes;
   title: string;
-  value: number | undefined;
-  expense: boolean;
+  value: number;
 };

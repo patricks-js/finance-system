@@ -1,4 +1,4 @@
-import { formatBudget } from "../../../helpers/formatBudget";
+import { formatValues } from "../../../utils/formatValues";
 
 type InfoProps = {
   title: string;
@@ -7,20 +7,20 @@ type InfoProps = {
 
 export const Info = ({ title, value }: InfoProps) => {
   return (
-    <div className="grid place-items-center">
+    <div className="grid place-items-center gap-y-2">
       <span className="text-lg font-medium">{title}</span>
       {title === "Despesas" ? (
-        <span className="text-rose-500 font-medium">
-          {formatBudget(value.toString())}
+        <span className="text-rose-500 font-medium text-xl">
+          R$&nbsp;{formatValues(value)}
         </span>
       ) : (
         <span
           className={`${
             value >= 0
-              ? "text-teal-500 font-medium"
-              : "text-rose-500 font-medium"
+              ? "text-teal-500 font-medium text-xl"
+              : "text-rose-500 font-medium text-xl"
           }`}>
-          {formatBudget(value.toString())}
+          R$&nbsp;{formatValues(value)}
         </span>
       )}
     </div>

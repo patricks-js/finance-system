@@ -4,8 +4,8 @@ import { v4 as uuid } from "uuid";
 
 import { BalanceTypes } from "../../@types/BalanceTypes";
 import { OptionsTypes } from "../../@types/OptionsTypes";
-import { validateData } from "../../helpers/validateData";
 import { api } from "../../server/api";
+import { formatData } from "../../utils/validateData";
 import { Button } from "../Button";
 import { Field } from "./Field";
 import { Select } from "./Select";
@@ -22,7 +22,7 @@ const initialValues = {
     expense: false
   },
   title: "",
-  value: undefined
+  value: 0
 };
 
 export const Form = ({ onSubmit }: FormProps) => {
@@ -31,12 +31,14 @@ export const Form = ({ onSubmit }: FormProps) => {
 
   const submit = (e: FormEvent) => {
     e.preventDefault();
-    postBalance();
+    postBalance(balance);
     setBalance(initialValues);
   };
 
-  const postBalance = () => {
-    onSubmit(validateData(balance));
+  const postBalance = async (data: BalanceTypes) => {
+    const formattedData = formatData(data);
+    await api.post("/balance/", formattedData);
+    onSubmit(formattedData);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +57,8 @@ export const Form = ({ onSubmit }: FormProps) => {
         expense:
           e.target.options[e.target.selectedIndex].value !== "earnings"
             ? true
-            : false
+            : false,
+        title: e.target.options[e.target.selectedIndex].text
       }
     });
   };
@@ -99,6 +102,7 @@ export const Form = ({ onSubmit }: FormProps) => {
         onChange={e => handleChange(e)}
         placeholder="Insira o valor..."
         value={balance.value}
+        step="0.01"
       />
       <Button type="submit">Adicionar</Button>
     </form>

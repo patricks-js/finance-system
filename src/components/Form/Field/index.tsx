@@ -9,7 +9,7 @@ export const Field = ({ idf, label, ...rest }: FieldInputProps) => {
         {label}
       </label>
       <input
-        className="rounded px-4 py-2"
+        className={"rounded px-4 py-2"}
         id={idf}
         name={idf}
         required
