@@ -11,7 +11,7 @@ export const Info = ({ title, value }: InfoProps) => {
       <span className="text-lg font-medium">{title}</span>
       {title === "Despesas" ? (
         <span className="text-rose-500 font-medium text-xl">
-          R $&nbsp;{formatValues(value)}
+          R$&nbsp;{formatValues(value)}
         </span>
       ) : (
         <span

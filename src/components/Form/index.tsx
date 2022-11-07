@@ -1,10 +1,7 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-
-import { v4 as uuid } from "uuid";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 import { BalanceTypes } from "../../@types/BalanceTypes";
-import { OptionsTypes } from "../../@types/OptionsTypes";
-import { api } from "../../server/api";
+import { api } from "../../config/api";
 import { formatData } from "../../utils/validateData";
 import { Button } from "../Button";
 import { Field } from "./Field";
@@ -27,7 +24,6 @@ const initialValues = {
 
 export const Form = ({ onSubmit }: FormProps) => {
   const [balance, setBalance] = useState<BalanceTypes>(initialValues);
-  const [options, setOptions] = useState<OptionsTypes[]>([]);
 
   const submit = (e: FormEvent) => {
     e.preventDefault();
@@ -37,14 +33,13 @@ export const Form = ({ onSubmit }: FormProps) => {
 
   const postBalance = async (data: BalanceTypes) => {
     const formattedData = formatData(data);
-    await api.post("/balance/", formattedData);
+    await api.post("/balance/register", formattedData);
     onSubmit(formattedData);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setBalance({
       ...balance,
-      id: uuid(),
       [e.target.name]: e.target.value
     });
   };
@@ -63,13 +58,6 @@ export const Form = ({ onSubmit }: FormProps) => {
     });
   };
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await api.get("/categories/");
-      setOptions(data);
-    })();
-  }, []);
-
   return (
     <form
       onSubmit={submit}
@@ -84,7 +72,6 @@ export const Form = ({ onSubmit }: FormProps) => {
       <Select
         idf="category"
         onChange={e => handleSelect(e)}
-        options={options}
         value={balance.category.type ? balance.category.type : ""}
       />
       <Field

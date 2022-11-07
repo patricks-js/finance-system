@@ -1,21 +1,19 @@
-import { Header } from "./components/Header";
+import { BrowserRouter } from "react-router-dom";
+
 import { Modal } from "./components/Modal";
-import { Content } from "./Content";
 import { useModal } from "./contexts/ModalContext";
+import { Routes } from "./routes";
 
 export const App = () => {
   const { isOpen, setOpenModal } = useModal();
 
   return (
-    <div className="bg-gray-100 text-zinc-900 w-full min-h-screen relative">
-      <Header />
-      <div className="container mx-auto">
-        <Content />
-      </div>
+    <BrowserRouter>
+      <Routes />
       <Modal
         openModal={isOpen}
         setOpenModal={setOpenModal}
       />
-    </div>
+    </BrowserRouter>
   );
 };

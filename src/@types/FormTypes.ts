@@ -1,7 +1,5 @@
 import { InputHTMLAttributes, SelectHTMLAttributes } from "react";
 
-import { OptionsTypes } from "./OptionsTypes";
-
 export type FieldInputProps = {
   label: string;
   idf: string;
@@ -10,5 +8,4 @@ export type FieldInputProps = {
 export type FieldSelectProps = {
   label?: string;
   idf: string;
-  options: OptionsTypes[];
 } & SelectHTMLAttributes<HTMLSelectElement>;

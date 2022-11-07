@@ -1,6 +1,6 @@
 import { BalanceTypes } from "../../@types/BalanceTypes";
+import { api } from "../../config/api";
 import { useModal } from "../../contexts/ModalContext";
-import { api } from "../../server/api";
 
 type ModalProps = {
   openModal: boolean;
@@ -15,7 +15,7 @@ export const Modal = ({ openModal, setOpenModal }: ModalProps) => {
   };
 
   const handleExcludeTask = async () => {
-    await api.delete(`/balance/${balanceId}`);
+    await api.delete(`/balance/delete/${balanceId}`);
     setNewBalance({} as BalanceTypes);
     handleClick();
   };

@@ -1,6 +1,7 @@
 import { FieldSelectProps } from "../../../@types/FormTypes";
+import { options } from "../../../utils/select-options";
 
-export const Select = ({ options, idf, ...rest }: FieldSelectProps) => {
+export const Select = ({ idf, ...rest }: FieldSelectProps) => {
   return (
     <fieldset className="grid gap-y-2">
       <label

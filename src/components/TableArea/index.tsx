@@ -9,20 +9,26 @@ type TableAreaProps = {
 export const TableArea = ({ balance }: TableAreaProps) => {
   return (
     <div className="w-full shadow-lg rounded p-5 bg-gray-100">
-      <header className="w-full grid place-items-center grid-cols-4">
-        <TableHeader>Data</TableHeader>
-        <TableHeader>Categoria</TableHeader>
-        <TableHeader>Título</TableHeader>
-        <TableHeader>Valor</TableHeader>
-      </header>
-      <div className="grid gap-y-4">
-        {balance.map((item, idx) => (
-          <TableItem
-            key={idx}
-            data={item}
-          />
-        ))}
-      </div>
+      {balance.length === 0 ? (
+        <p className="text-center font-semibold">Nenhum saldo registrado</p>
+      ) : (
+        <>
+          <header className="w-full grid place-items-center grid-cols-4">
+            <TableHeader>Data</TableHeader>
+            <TableHeader>Categoria</TableHeader>
+            <TableHeader>Título</TableHeader>
+            <TableHeader>Valor</TableHeader>
+          </header>
+          <div className="grid gap-y-4">
+            {balance.map((item, idx) => (
+              <TableItem
+                key={idx}
+                data={item}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

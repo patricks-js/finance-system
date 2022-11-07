@@ -22,7 +22,7 @@ export const filteredListByMonth = (
   list.forEach(item => {
     const [, month, year] = item.date.split("-");
 
-    if (month === currentMonth && year === currentYear.toString()) {
+    if (month === currentMonth.toString() && year === currentYear.toString()) {
       newList.push(item);
     }
   });

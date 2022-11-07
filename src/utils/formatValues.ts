@@ -46,8 +46,6 @@ const getRest = (value: string) => {
     .reverse()
     .filter(value => value !== "-");
 
-  console.log(toFormat);
-
   const formattedValue = chunk(toFormat);
 
   return formattedValue.join("");

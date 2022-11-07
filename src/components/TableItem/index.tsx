@@ -26,7 +26,7 @@ export const TableItem = ({ data }: TableItemData) => {
     <div className="w-full grid place-items-center grid-cols-4 ">
       <span className="tracking-widest">{data.date}</span>
       <span
-        className={classNames("max-w-max px-4 py-2 text-gray-100 rounded", {
+        className={classNames("max-w-max px-4 py-2 text-white rounded", {
           "bg-rose-600": food,
           "bg-cyan-500": bills,
           "bg-violet-600": subscription,
@@ -34,7 +34,7 @@ export const TableItem = ({ data }: TableItemData) => {
         })}>
         {data.category.title && data.category.title}
       </span>
-      <span>{data.title}</span>
+      <span className="text-lg font-medium">{data.title}</span>
       <span
         className={`font-medium text-lg ${
           data.category.expense ? "text-rose-500" : "text-teal-500"
