@@ -11,15 +11,15 @@ export const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
-    <header className="w-full h-48 bg-blue-800">
+    <header className="w-full h-48 bg-violet-800">
       <div className="container mx-auto flex items-center h-full justify-center relative">
         <span className="-translate-y-7 text-2xl md:text-4xl font-bold tracking-wider text-gray-100">
-          Sistema financeiro
+          Finance Plus
         </span>
         <button
           onClick={() => setOpenMenu(prev => !prev)}
           className="text-gray-100 flex items-center gap-x-2 absolute right-0 top-10">
-          <span className="text-lg">{user.name}</span>
+          <span className="text-lg font-medium">{user.name}</span>
           <img
             className="w-14 -translate-y-1"
             src={placeholder}

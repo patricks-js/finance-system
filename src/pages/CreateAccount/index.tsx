@@ -17,7 +17,7 @@ export const CreateAccount = () => {
   const submit = handleSubmit(async data => {
     try {
       await api.post("/users/register", data);
-      navigateTo("/login");
+      navigateTo("/login", { state: { message: "Conta criada com sucesso!" } });
     } catch (err) {
       console.log(err);
     }
@@ -28,18 +28,18 @@ export const CreateAccount = () => {
       <div className="flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="w-full max-w-md space-y-8">
           <div>
-            <h2 className="mt-6 text-center text-4xl font-bold tracking-tight text-gray-900">
+            <h2 className="mt-6 text-center text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
               Criar sua conta
             </h2>
           </div>
           <form
             onSubmit={submit}
-            className="mt-8 grid gap-y-6 px-10 py-10 shadow-md rounded-md bg-white">
+            className="mt-8 grid gap-y-6 p-5 sm:p-7 md:p-10 shadow-md rounded-md bg-white">
             <div className="grid gap-y-5 rounded-md shadow-sm">
               <div className="grid gap-2">
                 <label
                   htmlFor="full-name"
-                  className="">
+                  className="font-medium text-base md:text-lg">
                   Nome
                 </label>
                 <input
@@ -54,7 +54,7 @@ export const CreateAccount = () => {
               <div className="grid gap-2">
                 <label
                   htmlFor="email-address"
-                  className="">
+                  className="font-medium text-base md:text-lg">
                   Endereço de email
                 </label>
                 <input
@@ -70,7 +70,7 @@ export const CreateAccount = () => {
               <div className="grid gap-2">
                 <label
                   htmlFor="password"
-                  className="">
+                  className="font-medium text-base md:text-lg">
                   Senha
                 </label>
                 <input
@@ -87,7 +87,7 @@ export const CreateAccount = () => {
               <div className="grid gap-2">
                 <label
                   htmlFor="password"
-                  className="">
+                  className="font-medium text-base md:text-lg">
                   Confirmar senha
                 </label>
                 <input
@@ -110,7 +110,7 @@ export const CreateAccount = () => {
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3"></span>
                 Entrar
               </button>
-              <p className="text-sm mt-3 text-center">
+              <p className="text-sm md:text-base mt-3 text-center">
                 Já tem uma conta?{" "}
                 <Link
                   to="/login"

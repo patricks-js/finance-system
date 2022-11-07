@@ -2,7 +2,7 @@ import { ArrowLeft, ArrowRight } from "phosphor-react";
 
 import { BalanceTypes } from "../../@types/BalanceTypes";
 import { useDate } from "../../contexts/DateContext";
-import { formatCurrentDate } from "../../utils/dateFilters";
+import { formatCurrentMonth } from "../../utils/dateFilters";
 import {
   reduceBalance,
   reduceExpenses,
@@ -35,16 +35,20 @@ export const Information = ({ data }: InformationProps) => {
   }
 
   return (
-    <div className="w-full shadow-lg rounded p-5 grid bg-gray-100 place-items-center grid-cols-4">
-      <div className="flex items-center gap-x-5">
+    <div className="w-full shadow-lg rounded p-5 bg-gray-100 flex flex-col items-center gap-5 md:flex-row md:justify-evenly">
+      <div className="flex items-center gap-x-2 md:gap-x-5">
         <button onClick={prevMonth}>
           <ArrowLeft
             size={24}
             weight="bold"
           />
         </button>
-        <span className="text-lg font-medium inline-block w-44 text-center">
-          {formatCurrentDate(currentMonth, currentYear)}
+        <span className="text-lg font-medium inline-flex items-center text-center">
+          <span className="inline-block w-full md:truncate lg:text-clip md:w-14 lg:w-full">
+            {formatCurrentMonth(currentMonth)}
+          </span>
+          <span>-</span>
+          <span>{currentYear}</span>
         </span>
         <button onClick={nextMonth}>
           <ArrowRight

@@ -43,7 +43,7 @@ export const TableItem = ({ data }: TableItemData) => {
       </span>
       <button
         onClick={() => handleModal(data.id)}
-        className="absolute right-10">
+        className="absolute right-2 md:right-5 lg:right-10">
         <Trash
           size={24}
           weight="regular"

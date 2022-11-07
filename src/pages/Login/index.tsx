@@ -29,35 +29,33 @@ export const Login = () => {
     setTime(3);
     setTimeout(() => {
       setTime(time - 1);
-    }, 2000);
+    }, 3000);
   }, []);
 
   return (
     <>
       <div className="flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        {time > 0 && (
-          <div
-            className={`${
-              state ? "translate-y-0" : "-translate-y-20"
-            } px-8 py-3 transition-all duration-200 bg-green-500 absolute top-5 right-5 border-b-4 border-indigo-600`}>
-            <p className="text-white">{message}</p>
-          </div>
-        )}
+        <div
+          className={`${
+            state && time > 0 ? "translate-y-0" : "-translate-y-20"
+          } px-8 py-3 transition-all duration-200 bg-green-500 absolute top-5 right-5 border-b-4 border-indigo-600`}>
+          <p className="text-white">{message}</p>
+        </div>
 
         <div className="w-full max-w-md space-y-8">
           <div>
-            <h2 className="mt-6 text-center text-4xl font-bold tracking-tight text-gray-900">
+            <h2 className="mt-6 text-center text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
               Entrar em sua conta
             </h2>
           </div>
           <form
             onSubmit={submit}
-            className="mt-8 grid gap-y-6 px-10 py-10 shadow-md rounded-md bg-white">
+            className="mt-8 grid gap-y-6 p-5 sm:p-7 md:p-10 shadow-md rounded-md bg-white">
             <div className="grid gap-y-5 rounded-md shadow-sm">
               <div className="grid gap-2">
                 <label
                   htmlFor="email-address"
-                  className="">
+                  className="font-medium text-base md:text-lg">
                   Endereço de email
                 </label>
                 <input
@@ -73,7 +71,7 @@ export const Login = () => {
               <div className="grid gap-2">
                 <label
                   htmlFor="password"
-                  className="">
+                  className="font-medium text-base md:text-lg">
                   Senha
                 </label>
                 <input
@@ -96,12 +94,12 @@ export const Login = () => {
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3"></span>
                 Entrar
               </button>
-              <p className="text-sm mt-3 text-center">
+              <p className="text-sm md:text-base mt-3 text-center">
                 Não tem uma conta?{" "}
                 <Link
                   to="/create-account"
                   className="text-indigo-700 font-medium transition-all hover:underline">
-                  Clique aqui para criar uma
+                  Crie uma agora
                 </Link>
               </p>
             </div>

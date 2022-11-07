@@ -30,12 +30,8 @@ export const filteredListByMonth = (
   return newList;
 };
 
-export const formatCurrentDate = (
-  currentMonth: number,
-  currentYear: number
-): string => {
+export const formatCurrentMonth = (currentMonth: number): string => {
   const month = currentMonth.toString().padStart(2, "0");
-  const year = currentYear;
   const months = [
     "Janeiro",
     "Fevereiro",
@@ -51,5 +47,5 @@ export const formatCurrentDate = (
     "Dezembro"
   ];
 
-  return `${months[parseInt(month) - 1]}-${year}`;
+  return `${months[parseInt(month) - 1]}`;
 };

@@ -1,5 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 
+import { Plus } from "phosphor-react";
+
 import { BalanceTypes } from "../../@types/BalanceTypes";
 import { api } from "../../config/api";
 import { formatData } from "../../utils/validateData";
@@ -61,7 +63,7 @@ export const Form = ({ onSubmit }: FormProps) => {
   return (
     <form
       onSubmit={submit}
-      className="w-full shadow-lg rounded p-5 grid bg-gray-100 grid-cols-5 place-items-center items-end gap-x-5">
+      className="w-full shadow-lg rounded p-5 bg-gray-100 flex flex-col gap-5 md:flex-row md:items-end md:gap-2 sm:justify-evenly">
       <Field
         label="Data"
         idf="date"
@@ -88,10 +90,17 @@ export const Form = ({ onSubmit }: FormProps) => {
         type="number"
         onChange={e => handleChange(e)}
         placeholder="Insira o valor..."
-        value={balance.value}
+        value={balance.value ? balance.value : ""}
         step="0.01"
       />
-      <Button type="submit">Adicionar</Button>
+      <Button
+        type="submit"
+        styles="px-3 self-center md:self-auto">
+        <Plus
+          size={28}
+          weight="bold"
+        />
+      </Button>
     </form>
   );
 };
